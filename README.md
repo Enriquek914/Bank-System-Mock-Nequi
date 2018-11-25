@@ -22,7 +22,9 @@ un celular el 20 de enero del 2019. Con Mock Nequi, será posible transferir din
 meta, proveniente del dinero disponible en la cuenta.
 El dinero disponible en una cuenta de Mock Nequi esta dado por la siguiente fórmula.
 Disponible = Total en la cuenta - dinero en colchón - dinero en metas - dinero en bolsillos
+
 El objetivo de este proyecto es construir un sistema basado en consola que permita:
+
 1. Registrar nuevos usuarios con su nombre, email y contraseña.
 2. Iniciar sesión de un usuario con su email y contraseña. Cada usuario podrá realizar
 alguna de las siguientes opciones:
