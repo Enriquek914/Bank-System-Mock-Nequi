@@ -1,7 +1,9 @@
 # Bank-System-Mock-Nequi
 
 Proyecto
+
 Sistema bancario - Mock Nequi
+
 Codum Academy quiere construir un prototipo basado en el servicio creado por
 Bancolombia para transferir dinero entre personas, cuyo nombre será Mock Nequi.
 Todos los usuarios de Mock Nequi contarán con una única cuenta de ahorros en la cual se
