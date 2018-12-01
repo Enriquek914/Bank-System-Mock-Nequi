@@ -1,11 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const connection = require('../database');
-const user = require('../models/user');
-
 
 router.get('/', (req, res, next) => {
-    connection.query('SELECT * FROM user INNER JOIN city ON user.City_id = city.id', (err, rows, fields) => {
+    connection.query('SELECT * FROM pocket', (err, rows, fields) => {
         if (!err) {
             res.setHeader("X-Total-Count", rows.length);
             res.json(rows);
@@ -17,7 +15,7 @@ router.get('/', (req, res, next) => {
 
 router.get('/:id', (req, res) => {
     const { id } = req.params;
-    connection.query('SELECT * FROM user WHERE id = ?', [id], (err, rows, field) => {
+    connection.query('SELECT * FROM pocket WHERE id = ?', [id], (err, rows, field) => {
         if (!err) {
             res.json(rows[0]);
         } else {
@@ -27,11 +25,11 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-    const user = req.body;
-    connection.query('INSERT INTO user SET ?', [user], (err, rows, field) => {
+    const pocket = req.body;
+    connection.query('INSERT INTO pocket SET ?', [pocket], (err, rows, field) => {
         if (!err) {
             res.json({
-                status: 'User Created'
+                status: 'Pocket Created'
             });
         } else {
             console.log(err);
@@ -41,10 +39,10 @@ router.post('/', (req, res) => {
 
 router.delete('/:id', (req, res) => {
     const { id } = req.params;
-    connection.query('DELETE FROM user WHERE id = ?', [id], (err, rows, field) => {
+    connection.query('DELETE FROM pocket WHERE id = ?', [id], (err, rows, field) => {
         if (!err) {
             res.json({
-                status: 'User Deleted'
+                status: 'Pocket Deleted'
             });
         } else {
             console.log(err);
@@ -54,25 +52,14 @@ router.delete('/:id', (req, res) => {
 
 router.put('/:id', (req, res) => {
     const { id } = req.params;
-    const user = req.body;
-    connection.query('UPDATE user SET ? WHERE id = ?', [user, id], (err, rows, field) => {
+    const pocket = req.body;
+    connection.query('UPDATE pocket SET ? WHERE id = ?', [pocket, id], (err, rows, field) => {
         if (!err) {
             res.json({
-                status: 'User Updated'
+                status: 'Pocket Updated'
             });
         } else {
             console.log(err);
-        }
-    });
-});
-
-router.post('/login', (req, res) => {
-    const { username, password } = req.body;
-    connection.query('SELECT * FROM user WHERE email = ? AND password = ?', [username, password], (err, rows, fields) => {
-        if (typeof rows !== 'undefined' && rows.length == 0) {
-            res.sendStatus(404);
-        } else {
-            res.sendStatus(204);
         }
     });
 });
