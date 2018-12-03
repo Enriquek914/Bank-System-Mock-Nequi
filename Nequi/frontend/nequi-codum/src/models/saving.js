@@ -2,13 +2,17 @@ import React from 'react';
 import { List, Datagrid, TextField, Create, SimpleForm, NumberInput, TextInput, EditButton, SelectInput, Edit } from 'admin-on-rest';
 
 export const SavingList = (props) => (
-    <List {...props}>
-        <Datagrid>
-            <TextField label="Name: " source="savingName" />
-            <TextField label="Balance:" source="balance" />
-            <EditButton label="Operate Saving" />
-        </Datagrid>
-    </List>
+     <div>   
+        <List {...props}>
+            <Datagrid>
+                <TextField label="Name: " source="savingName" />
+                <TextField label="Balance:" source="balance" />
+                <EditButton label="Operate Saving" />
+            </Datagrid>
+        </List>
+        < br></br>
+        <input type="button" onclick="history.back()" name="GoBack" value="GoBack"/>
+    </div>
 );
 
 export const SavingCreate = (props) => (
