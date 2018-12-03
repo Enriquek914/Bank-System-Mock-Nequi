@@ -52,11 +52,18 @@ router.delete('/:id', (req, res) => {
 
 router.put('/:id', (req, res) => {
     const { id } = req.params;
-    const pocket = req.body;
-    connection.query('UPDATE pocket SET ? WHERE id = ?', [pocket, id], (err, rows, field) => {
+    var pocket = req.body;
+    connection.query('SELECT balance FROM pocket WHERE id = ?', [id], (err, rows, field) => {
         if (!err) {
-            res.json({
-                status: 'Pocket Updated'
+            pocket.balance += Number(rows[0].balance);
+            connection.query('UPDATE pocket SET ? WHERE id = ?', [pocket, id], (err, rows, field) => {
+                if (!err) {
+                    res.json({
+                        status: 'Pocket Updated'
+                    });
+                } else {
+                    console.log(err);
+                }
             });
         } else {
             console.log(err);

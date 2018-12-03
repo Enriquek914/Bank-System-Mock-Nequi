@@ -10,6 +10,7 @@ app.set('port', process.env.PORT || 4000);
 // Middlewares
 app.use(morgan('dev'));
 app.use(express.json());
+
 app.use(cors({ "exposedHeaders": "X-Total-Count" }));
 
 // Routes

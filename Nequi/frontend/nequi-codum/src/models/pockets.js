@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, Datagrid, TextField, Create, SimpleForm, NumberInput, ReferenceField, TextInput } from 'admin-on-rest';
+import { List, Datagrid, TextField, Create, SimpleForm, NumberInput, ReferenceField, TextInput, EditButton, Edit } from 'admin-on-rest';
 
 export const PocketList = (props) => (
     <List {...props}>
@@ -9,6 +9,7 @@ export const PocketList = (props) => (
             <ReferenceField label="Account: " source="Account_id" reference="accounts">
                 <TextField source="number" />
             </ReferenceField>
+            <EditButton label={'Add'}/>
         </Datagrid>
     </List>
 );
@@ -25,3 +26,10 @@ export const PocketCreate = (props) => (
     </Create>
 );
 
+export const PocketEdit = (props) => (
+    <Edit {...props}>
+        <SimpleForm>
+            <TextInput label="Balance:" source="balance" />
+        </SimpleForm>
+    </Edit>
+);

@@ -52,16 +52,25 @@ router.delete('/:id', (req, res) => {
 
 router.put('/:id', (req, res) => {
     const { id } = req.params;
-    const saving = req.body;
-    connection.query('UPDATE saving SET ? WHERE id = ?', [saving, id], (err, rows, field) => {
-        if (!err) {
-            res.json({
-                status: 'Saving Updated'
-            });
-        } else {
-            console.log(err);
-        }
-    });
+    const saving = {
+        id: req.body.id,
+        savingName: req.body.savingName,
+        balance: req.body.balance,
+        createAt: req.body.createAt,
+        updatedAt: req.body.updatedAt,
+        active: req.body.active,
+        Account_id: req.body.Account_id
+    }
+
+    if (req.body.transactionType == 'Insert') {
+        connection.query('SELECT availableBalance FROM account WHERE id = ?', [saving.Account_id], (err, rows, field) => {
+            if (!err) {
+                res.json(rows[0]);
+            } else {
+                console.log(err);
+            }
+        });
+    }
 });
 
 module.exports = router; 
