@@ -1,0 +1,426 @@
+-- MySQL dump 10.13  Distrib 8.0.13, for Win64 (x86_64)
+--
+-- Host: localhost    Database: nequicodum
+-- ------------------------------------------------------
+-- Server version	8.0.13
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+ SET NAMES utf8mb4 ;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `account`
+--
+
+DROP TABLE IF EXISTS `account`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `account` (
+  `idAccount` int(11) NOT NULL AUTO_INCREMENT,
+  `nameAccount` varchar(50) NOT NULL,
+  `number` varchar(11) NOT NULL,
+  `expirationDate` datetime NOT NULL,
+  `minBalance` int(11) NOT NULL DEFAULT '30000',
+  `availableBalance` int(11) NOT NULL,
+  `totalBalance` int(11) NOT NULL,
+  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updatedAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `User_id` int(11) NOT NULL,
+  `AccountType_id` int(11) NOT NULL,
+  PRIMARY KEY (`idAccount`),
+  KEY `fk_Account_User_idx` (`User_id`),
+  KEY `fk_Account_AccountType1_idx` (`AccountType_id`),
+  CONSTRAINT `fk_Account_AccountType1` FOREIGN KEY (`AccountType_id`) REFERENCES `accounttype` (`idaccounttype`),
+  CONSTRAINT `fk_Account_User` FOREIGN KEY (`User_id`) REFERENCES `user` (`iduser`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `account`
+--
+
+LOCK TABLES `account` WRITE;
+/*!40000 ALTER TABLE `account` DISABLE KEYS */;
+INSERT INTO `account` VALUES (3,'AhorrosNomina','132548523','2020-01-01 00:00:00',30000,0,30000,'2018-12-02 22:40:53','2018-12-02 22:40:53',1,10,2),(4,'AhorrosNomina','132543965','2020-11-12 00:00:00',30000,0,300000,'2018-12-02 22:40:57','2018-12-02 22:40:57',1,7,2),(5,'AhorrosProgramado','13254485','2020-12-24 00:00:00',30000,0,3000000,'2018-12-02 22:40:57','2018-12-02 22:40:57',1,8,2),(6,'AhorrosNomina','132543156','2019-12-02 00:00:00',30000,0,500000,'2018-12-02 22:40:57','2018-12-02 22:40:57',1,9,2),(7,'AhorrosNomina','1516513843','2020-10-12 00:00:00',30000,0,1652000,'2018-12-02 22:40:58','2018-12-02 22:40:58',1,11,2);
+/*!40000 ALTER TABLE `account` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `accounttype`
+--
+
+DROP TABLE IF EXISTS `accounttype`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `accounttype` (
+  `idAccountType` int(11) NOT NULL AUTO_INCREMENT,
+  `accountTypeName` varchar(50) NOT NULL,
+  PRIMARY KEY (`idAccountType`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `accounttype`
+--
+
+LOCK TABLES `accounttype` WRITE;
+/*!40000 ALTER TABLE `accounttype` DISABLE KEYS */;
+INSERT INTO `accounttype` VALUES (2,'Cuenta de ahorros'),(3,'Cuenta corriente'),(4,'Cuenta de ahorros'),(5,'Cuenta corriente');
+/*!40000 ALTER TABLE `accounttype` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `city`
+--
+
+DROP TABLE IF EXISTS `city`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `city` (
+  `idCity` int(11) NOT NULL AUTO_INCREMENT,
+  `cityName` varchar(80) NOT NULL,
+  `localIndicative` varchar(45) DEFAULT NULL,
+  `Country_id` int(11) NOT NULL,
+  PRIMARY KEY (`idCity`),
+  KEY `fk_City_Country1_idx` (`Country_id`),
+  CONSTRAINT `fk_City_Country1` FOREIGN KEY (`Country_id`) REFERENCES `country` (`idcountry`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `city`
+--
+
+LOCK TABLES `city` WRITE;
+/*!40000 ALTER TABLE `city` DISABLE KEYS */;
+INSERT INTO `city` VALUES (3,'Bogotá','57',2),(4,'Washington','54',3),(5,'París','12',4),(6,'Lima','15',5),(7,'Beijin','6',6);
+/*!40000 ALTER TABLE `city` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `country`
+--
+
+DROP TABLE IF EXISTS `country`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `country` (
+  `idCountry` int(11) NOT NULL AUTO_INCREMENT,
+  `countryName` varchar(50) NOT NULL,
+  `localCurrency` varchar(50) NOT NULL,
+  PRIMARY KEY (`idCountry`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `country`
+--
+
+LOCK TABLES `country` WRITE;
+/*!40000 ALTER TABLE `country` DISABLE KEYS */;
+INSERT INTO `country` VALUES (2,'Colombia','COP'),(3,'Estados Unidos','US_DOLAR'),(4,'Francia','EURO'),(5,'Perú','SOL'),(6,'China','YEN');
+/*!40000 ALTER TABLE `country` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `goal`
+--
+
+DROP TABLE IF EXISTS `goal`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `goal` (
+  `idGoal` int(11) NOT NULL AUTO_INCREMENT,
+  `goalName` varchar(80) NOT NULL,
+  `description` varchar(200) NOT NULL,
+  `totalAmount` int(11) NOT NULL,
+  `savedAmount` int(11) NOT NULL DEFAULT '0',
+  `leftAmount` int(11) NOT NULL DEFAULT '0',
+  `finalDate` datetime NOT NULL,
+  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updatedAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `Account_id` int(11) NOT NULL,
+  `state` enum('C','V') DEFAULT NULL,
+  PRIMARY KEY (`idGoal`),
+  KEY `fk_Goal_Account1_idx` (`Account_id`),
+  CONSTRAINT `fk_Goal_Account1` FOREIGN KEY (`Account_id`) REFERENCES `account` (`idaccount`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `goal`
+--
+
+LOCK TABLES `goal` WRITE;
+/*!40000 ALTER TABLE `goal` DISABLE KEYS */;
+INSERT INTO `goal` VALUES (9,'Casa','Ahorro mensual generado para la casa',3500000,500000,500000,'2019-05-05 00:00:00','2018-12-02 23:50:40','2018-12-02 23:50:40',1,3,'C'),(10,'Apartamento','Ahorro mensual generado para el Apartamento',15000000,5000000,5000000,'2019-07-05 00:00:00','2018-12-02 23:50:40','2018-12-02 23:50:40',1,4,'V'),(11,'Carro','Ahorro mensual generado para el Carro',22000000,15560000,15560000,'2019-10-05 00:00:00','2018-12-02 23:50:40','2018-12-02 23:50:40',1,5,'C'),(12,'Moto','Ahorro mensual generado para la Moto',7500000,150000,150000,'2019-01-05 00:00:00','2018-12-02 23:50:40','2018-12-02 23:50:40',1,6,'C');
+/*!40000 ALTER TABLE `goal` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `pocket`
+--
+
+DROP TABLE IF EXISTS `pocket`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `pocket` (
+  `idPocket` int(11) NOT NULL AUTO_INCREMENT,
+  `pocketName` varchar(50) NOT NULL,
+  `balance` int(11) NOT NULL DEFAULT '0',
+  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updatedAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `Account_id` int(11) NOT NULL,
+  PRIMARY KEY (`idPocket`),
+  KEY `fk_Pocket_Account1_idx` (`Account_id`),
+  CONSTRAINT `fk_Pocket_Account1` FOREIGN KEY (`Account_id`) REFERENCES `account` (`idaccount`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pocket`
+--
+
+LOCK TABLES `pocket` WRITE;
+/*!40000 ALTER TABLE `pocket` DISABLE KEYS */;
+INSERT INTO `pocket` VALUES (2,'Certificaciones',30000,'2018-12-02 22:42:57','2018-12-02 22:42:57',1,3),(3,'Gafas',60000,'2018-12-02 22:42:57','2018-12-02 22:42:57',1,3),(4,'Viajes',1250000,'2018-12-02 22:42:57','2018-12-02 22:42:57',1,3),(5,'ViajesColombia',200000,'2018-12-02 22:42:57','2018-12-02 22:42:57',1,4),(6,'ViajesExtranjero',202000,'2018-12-02 22:42:57','2018-12-02 22:42:57',1,5);
+/*!40000 ALTER TABLE `pocket` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `portafolio`
+--
+
+DROP TABLE IF EXISTS `portafolio`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `portafolio` (
+  `idPortafolio` int(11) NOT NULL AUTO_INCREMENT,
+  `handlingFee` int(11) NOT NULL,
+  `Account_id` int(11) NOT NULL,
+  `Saving_id` int(11) NOT NULL,
+  `Pocket_id` int(11) NOT NULL,
+  `Goal_id` int(11) NOT NULL,
+  `User_id` int(11) NOT NULL,
+  PRIMARY KEY (`idPortafolio`),
+  KEY `Account_id_idx` (`Account_id`),
+  KEY `Saving_id_idx` (`Saving_id`),
+  KEY `Pocket_id_idx` (`Pocket_id`),
+  KEY `Goal_id_idx` (`Goal_id`),
+  KEY `User_id_idx` (`User_id`),
+  CONSTRAINT `Account_id` FOREIGN KEY (`Account_id`) REFERENCES `account` (`idaccount`),
+  CONSTRAINT `Goal_id` FOREIGN KEY (`Goal_id`) REFERENCES `goal` (`idgoal`),
+  CONSTRAINT `Pocket_id` FOREIGN KEY (`Pocket_id`) REFERENCES `pocket` (`idpocket`),
+  CONSTRAINT `Saving_id` FOREIGN KEY (`Saving_id`) REFERENCES `saving` (`idsaving`),
+  CONSTRAINT `User_id` FOREIGN KEY (`User_id`) REFERENCES `user` (`iduser`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `portafolio`
+--
+
+LOCK TABLES `portafolio` WRITE;
+/*!40000 ALTER TABLE `portafolio` DISABLE KEYS */;
+/*!40000 ALTER TABLE `portafolio` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `saving`
+--
+
+DROP TABLE IF EXISTS `saving`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `saving` (
+  `idSaving` int(11) NOT NULL AUTO_INCREMENT,
+  `SavingName` varchar(50) NOT NULL,
+  `balance` int(11) NOT NULL,
+  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updatedAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `Account_id` int(11) NOT NULL,
+  PRIMARY KEY (`idSaving`),
+  KEY `fk_Saving_Account1_idx` (`Account_id`),
+  CONSTRAINT `fk_Saving_Account1` FOREIGN KEY (`Account_id`) REFERENCES `account` (`idaccount`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `saving`
+--
+
+LOCK TABLES `saving` WRITE;
+/*!40000 ALTER TABLE `saving` DISABLE KEYS */;
+INSERT INTO `saving` VALUES (2,'Colchón1',60000,'2018-12-02 22:49:19','2018-12-02 22:49:19',1,3),(3,'Colchón1',10000,'2018-12-02 22:49:19','2018-12-02 22:49:19',1,4),(4,'Colchón1',500000,'2018-12-02 22:49:19','2018-12-02 22:49:19',1,5),(5,'Colchón1',10000,'2018-12-02 22:49:19','2018-12-02 22:49:19',1,6),(6,'Colchón1',250600,'2018-12-02 22:49:19','2018-12-02 22:49:19',1,7);
+/*!40000 ALTER TABLE `saving` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tax`
+--
+
+DROP TABLE IF EXISTS `tax`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `tax` (
+  `idTax` int(11) NOT NULL AUTO_INCREMENT,
+  `TaxName` varchar(45) NOT NULL,
+  `percentaje` double(4,3) DEFAULT NULL,
+  PRIMARY KEY (`idTax`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tax`
+--
+
+LOCK TABLES `tax` WRITE;
+/*!40000 ALTER TABLE `tax` DISABLE KEYS */;
+INSERT INTO `tax` VALUES (1,'NONE',0.000),(2,'4*1000',0.040),(3,'RETEFUENTE',0.070),(4,'RETEICA',0.020);
+/*!40000 ALTER TABLE `tax` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `transaction`
+--
+
+DROP TABLE IF EXISTS `transaction`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `transaction` (
+  `idTransaction` int(11) NOT NULL AUTO_INCREMENT,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `amount` int(11) NOT NULL,
+  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updatedAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `TransactionStatus_id` int(11) NOT NULL,
+  `TransactionType_id` int(11) NOT NULL,
+  `Account_id` int(11) NOT NULL,
+  `Tax_id` int(11) NOT NULL,
+  PRIMARY KEY (`idTransaction`),
+  KEY `fk_Transaction_TransactionStatus1_idx` (`TransactionStatus_id`),
+  KEY `fk_Transaction_TransactionType1_idx` (`TransactionType_id`),
+  KEY `fk_Transaction_Account1_idx` (`Account_id`),
+  KEY `fk_Transaction_Tax1_idx` (`Tax_id`),
+  CONSTRAINT `fk_Transaction_Account1` FOREIGN KEY (`Account_id`) REFERENCES `account` (`idaccount`),
+  CONSTRAINT `fk_Transaction_Tax1` FOREIGN KEY (`Tax_id`) REFERENCES `tax` (`idtax`),
+  CONSTRAINT `fk_Transaction_TransactionStatus1` FOREIGN KEY (`TransactionStatus_id`) REFERENCES `transactionstatus` (`idtransactionstatus`),
+  CONSTRAINT `fk_Transaction_TransactionType1` FOREIGN KEY (`TransactionType_id`) REFERENCES `transactiontype` (`idtransactiontype`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `transaction`
+--
+
+LOCK TABLES `transaction` WRITE;
+/*!40000 ALTER TABLE `transaction` DISABLE KEYS */;
+INSERT INTO `transaction` VALUES (2,'2018-12-02 22:42:10',250000,'2018-12-02 22:42:10','2018-12-02 22:42:10',1,1,1,3,1),(3,'2018-12-02 22:42:10',120000,'2018-12-02 22:42:10','2018-12-02 22:42:10',1,1,2,4,1),(4,'2018-12-02 22:42:10',600000,'2018-12-02 22:42:10','2018-12-02 22:42:10',1,1,1,5,1);
+/*!40000 ALTER TABLE `transaction` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `transactionstatus`
+--
+
+DROP TABLE IF EXISTS `transactionstatus`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `transactionstatus` (
+  `idTransactionStatus` int(11) NOT NULL AUTO_INCREMENT,
+  `statusName` varchar(45) NOT NULL,
+  PRIMARY KEY (`idTransactionStatus`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `transactionstatus`
+--
+
+LOCK TABLES `transactionstatus` WRITE;
+/*!40000 ALTER TABLE `transactionstatus` DISABLE KEYS */;
+INSERT INTO `transactionstatus` VALUES (1,'Exitosa'),(2,'Cancelada'),(3,'No exitosa'),(4,'Exitosa'),(5,'Cancelada'),(6,'No exitosa');
+/*!40000 ALTER TABLE `transactionstatus` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `transactiontype`
+--
+
+DROP TABLE IF EXISTS `transactiontype`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `transactiontype` (
+  `idTransactionType` int(11) NOT NULL AUTO_INCREMENT,
+  `transactionTypeName` varchar(45) NOT NULL,
+  PRIMARY KEY (`idTransactionType`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `transactiontype`
+--
+
+LOCK TABLES `transactiontype` WRITE;
+/*!40000 ALTER TABLE `transactiontype` DISABLE KEYS */;
+INSERT INTO `transactiontype` VALUES (1,'Consignación'),(2,'Retiro'),(3,'Transferencia'),(4,'Consignación'),(5,'Retiro'),(6,'Transferencia');
+/*!40000 ALTER TABLE `transactiontype` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `user` (
+  `idUser` int(11) NOT NULL AUTO_INCREMENT,
+  `firstName` varchar(70) NOT NULL,
+  `lastName` varchar(70) NOT NULL,
+  `email` varchar(60) NOT NULL,
+  `password` varchar(250) NOT NULL,
+  `birthdate` date NOT NULL,
+  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updatedAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `City_id` int(11) NOT NULL,
+  PRIMARY KEY (`idUser`),
+  UNIQUE KEY `email_UNIQUE` (`email`),
+  KEY `fk_User_City1_idx` (`City_id`),
+  CONSTRAINT `fk_User_City1` FOREIGN KEY (`City_id`) REFERENCES `city` (`idcity`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user`
+--
+
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (4,'Juan','Perez','jperez@mibanco.com','123perez','1986-02-02','2018-12-02 22:23:07','2018-12-02 22:23:07',1,6),(7,'Juan','Perez','japerez@mibanco.com','123perez','1986-02-02','2018-12-02 22:24:22','2018-12-02 22:24:22',1,3),(8,'Enrique','Granados','egranados@mibanco.com','123granados','1975-02-02','2018-12-02 22:24:22','2018-12-02 22:24:22',1,4),(9,'Pedro','Cárdenas','pcardenas@mibanco.com','123cardenas','1992-02-02','2018-12-02 22:24:22','2018-12-02 22:24:22',1,3),(10,'Camila','Ortiz','cortiz@mibanco.com','123cortiz','1991-02-02','2018-12-02 22:24:22','2018-12-02 22:24:22',1,6),(11,'María','Jiimenez','mjimenez@mibanco.com','123jimenez','1989-02-15','2018-12-02 22:24:22','2018-12-02 22:24:22',1,5),(12,'Sebastian','Ortiz','sortiz@mibanco.com','123oritz','1992-05-05','2018-12-02 22:24:50','2018-12-02 22:24:50',1,7);
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2018-12-02 19:37:54
