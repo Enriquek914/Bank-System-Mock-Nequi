@@ -15,7 +15,6 @@ app.use(cors({ "exposedHeaders": "X-Total-Count" }));
 
 // Routes
 app.use('/api/users', require('./routes/users-routes'));
-app.use('/api/cities', require('./routes/cities-routes'));
 app.use('/api/accounts', require('./routes/accounts-routes'));
 app.use('/api/goals', require('./routes/goals-routes'));
 app.use('/api/savings', require('./routes/savings-routes'));

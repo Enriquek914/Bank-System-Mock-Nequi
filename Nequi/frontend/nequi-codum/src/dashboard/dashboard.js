@@ -15,7 +15,7 @@ export default () => (
         <Welcome styles={styles} />
 
         <Card style={{ margin: '2em' }}>
-            <CardHeader title="Welcome to Nequi" />
+            <CardHeader title="Welcome to CodumNequi" />
             <CardText>Easy Money</CardText>
         </Card>
 

@@ -8,6 +8,7 @@ export default ({ style, translate }) => (
         <CardHeader
             title={'Welcome to Nequi'}
             subtitle={'This is our main page for your account.'}
+            subtitle={'Navigate on left menu'}
             avatar={<Avatar backgroundColor="#FFEB3B" icon={<LightBulbIcon />} />}
         />
     </Card>
